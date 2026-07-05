@@ -7,17 +7,17 @@
 <link rel="icon" href="icon.png">
 <link rel="apple-touch-icon" href="icon.png">
 <link rel="manifest" href="manifest.webmanifest">
-<meta name="theme-color" content="#2f6fed">
+<meta name="theme-color" content="#8b7ec8">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="チェックシート">
 <style>
   :root{
-    /* colors: brand */
-    --color-main:#2f6fed;
-    --color-main-dark:#1d4fbf;
+    /* colors: brand (静かな魔法ファンタジー / 薄紫) */
+    --color-main:#8b7ec8;
+    --color-main-dark:#6f5fae;
     --color-on-main:#ffffff;
-    --color-accent:#eaf1ff;
+    --color-accent:#f0edfa;
 
     /* colors: semantic status */
     --color-danger:#e5484d;
@@ -25,36 +25,36 @@
     --color-success:#2f9e44;
 
     /* colors: text & surface */
-    --color-text:#222831;
-    --color-text-sub:#6b7280;
+    --color-text:#332e4a;
+    --color-text-sub:#7c7398;
     --color-bg:#ffffff;
-    --color-card-bg:#ffffff;
-    --color-border:#e2e5ea;
-    --color-panel-bg:#fafbfc;
-    --color-btn-sub-bg:#f0f1f3;
-    --color-calendar-bg:#f6f7f9;
-    --color-badge-bg:#eee;
-    --color-badge-text:#555;
+    --color-card-bg:#fffdfc;
+    --color-border:#e6e1f5;
+    --color-panel-bg:#f7f5fc;
+    --color-btn-sub-bg:#efeaf9;
+    --color-calendar-bg:#f5f2fb;
+    --color-badge-bg:#ece7f8;
+    --color-badge-text:#6f5fae;
     --color-partial-bg:#fff6e0;
     --color-partial-text:#9a6b00;
-    --color-axis:#ccc;
-    --color-axis-text:#999;
-    --color-ideal-line:#bbb;
-    --color-overlay:rgba(0,0,0,.45);
+    --color-axis:#d8d2ea;
+    --color-axis-text:#9992b3;
+    --color-ideal-line:#c9c2e0;
+    --color-overlay:rgba(58,48,86,.5);
 
     /* typography */
     --font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif;
 
     /* shape */
-    --radius:14px;
-    --radius-sm:8px;
-    --radius-xs:6px;
-    --radius-pill:10px;
+    --radius:20px;
+    --radius-sm:12px;
+    --radius-xs:8px;
+    --radius-pill:14px;
 
     /* layout */
     --tabbar-height:64px;
     --header-height:52px;
-    --gap:12px;
+    --gap:16px;
   }
   *,*::before,*::after{ box-sizing:border-box; }
   html,body{ margin:0; padding:0; }
@@ -83,11 +83,32 @@
     top:0;
     background:var(--color-bg);
     z-index:5;
+    overflow:hidden;
+  }
+  .app-header::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background-image:
+      radial-gradient(circle at 10% 40%, rgba(139,126,200,.16) 0%, transparent 55%),
+      radial-gradient(circle at 92% 60%, rgba(139,126,200,.14) 0%, transparent 50%);
+    pointer-events:none;
   }
   .app-header__title{
+    position:relative;
     font-size:18px;
     margin:0;
     font-weight:700;
+  }
+  .app-header__title::before,
+  .app-header__title::after{
+    content:"✦";
+    display:inline-block;
+    color:var(--color-main);
+    opacity:.5;
+    font-size:11px;
+    margin:0 8px;
+    vertical-align:middle;
   }
   .screen{
     flex:1;
@@ -174,6 +195,8 @@
   .date-nav__label{ font-size:18px; font-weight:700; min-width:140px; text-align:center; }
 
   .goal-card{
+    position:relative;
+    overflow:hidden;
     background:var(--color-card-bg);
     border:1px solid var(--color-border);
     border-radius:var(--radius);
@@ -181,6 +204,7 @@
     margin-bottom:var(--gap);
   }
   .goal-card__title{ font-size:16px; font-weight:700; margin-bottom:6px; }
+  .goal-card__title::before{ content:"✦ "; color:var(--color-main); opacity:.6; }
   .goal-card__week{ font-size:12px; font-weight:400; color:var(--color-text-sub); margin-left:6px; }
   .goal-card__target{ font-size:13px; color:var(--color-text-sub); margin-bottom:8px; }
   .goal-card__big-btn{
@@ -208,11 +232,25 @@
   .goal-card__total-info{ font-size:14px; margin-top:6px; color:var(--color-text); }
 
   .summary-card{
+    position:relative;
+    overflow:hidden;
     background:var(--color-accent);
     border-radius:var(--radius);
     padding:14px;
     margin-bottom:var(--gap);
     font-size:14px;
+  }
+  .summary-card::after{
+    content:"";
+    position:absolute;
+    top:-36px; right:-36px;
+    width:130px; height:130px;
+    border-radius:50%;
+    border:1px solid rgba(111,95,174,.3);
+    box-shadow:
+      0 0 0 12px rgba(111,95,174,.07),
+      0 0 0 26px rgba(111,95,174,.04);
+    pointer-events:none;
   }
   .summary-card__row{ display:flex; justify-content:space-between; margin-bottom:4px; }
   .summary-card__row:last-child{ margin-bottom:0; }
@@ -225,6 +263,7 @@
     margin-bottom:var(--gap);
   }
   .graph-card__title{ font-size:16px; font-weight:700; margin-bottom:8px; }
+  .graph-card__title::before{ content:"✦ "; color:var(--color-main); opacity:.6; }
   .graph-card__svg{ width:100%; height:auto; display:block; }
   .graph-card__note{ font-size:14px; margin-top:8px; font-weight:700; color:var(--color-main-dark); }
   .graph-card__streak{ font-size:14px; margin-top:8px; }
@@ -326,6 +365,107 @@
   #confirmRoot .modal-overlay{ z-index:60; }
 
   h2{ font-size:17px; margin:0 0 10px; }
+
+  /* ===================== お祝い演出 ===================== */
+  @keyframes celebrate-fade-in{ from{ opacity:0; } to{ opacity:1; } }
+  @keyframes magic-circle-pop{
+    0%{ transform:scale(.4) rotate(0deg); opacity:0; }
+    30%{ opacity:1; }
+    100%{ transform:scale(1.15) rotate(160deg); opacity:0; }
+  }
+  @keyframes particle-pop{
+    0%{ transform:translate(0,0) scale(.4); opacity:0; }
+    20%{ opacity:1; }
+    100%{ transform:translate(var(--dx),var(--dy)) scale(1); opacity:0; }
+  }
+  @keyframes magic-circle-spin{ from{ transform:rotate(0deg); } to{ transform:rotate(360deg); } }
+  @keyframes magic-circle-glow{
+    from{ filter:drop-shadow(0 0 4px rgba(139,126,200,.6)); }
+    to{ filter:drop-shadow(0 0 18px rgba(139,126,200,.95)); }
+  }
+  @keyframes confetti-fall{
+    0%{ transform:translateY(0) rotate(0deg); opacity:0; }
+    10%{ opacity:1; }
+    100%{ transform:translateY(115vh) rotate(360deg); opacity:.9; }
+  }
+  @keyframes pillar-rise{
+    from{ opacity:0; transform:scaleY(.3); }
+    to{ opacity:1; transform:scaleY(1); }
+  }
+
+  .celebrate-single{
+    position:absolute; inset:0;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    background:rgba(255,255,255,.6);
+    border-radius:var(--radius);
+    z-index:3;
+    cursor:pointer;
+    animation:celebrate-fade-in .15s ease-out;
+  }
+  .celebrate-single__circle{ width:64px; height:64px; animation:magic-circle-pop .9s ease-out forwards; }
+  .celebrate-single__label{
+    margin-top:2px;
+    font-size:15px;
+    font-weight:700;
+    color:var(--color-main-dark);
+  }
+  .celebrate-single__particle{
+    position:absolute;
+    font-size:12px;
+    color:var(--color-main);
+    animation:particle-pop .9s ease-out forwards;
+  }
+
+  .celebrate-overlay{
+    position:fixed; inset:0;
+    background:var(--color-overlay);
+    display:flex; align-items:center; justify-content:center;
+    overflow:hidden;
+    z-index:80;
+    cursor:pointer;
+    animation:celebrate-fade-in .2s ease-out;
+  }
+  .celebrate-overlay__content{
+    position:relative;
+    display:flex; flex-direction:column; align-items:center;
+    gap:14px;
+    padding:0 24px;
+  }
+  .celebrate-overlay__circle{
+    width:180px; height:180px;
+    animation:magic-circle-spin 2.6s linear infinite, magic-circle-glow 1.2s ease-in-out infinite alternate;
+  }
+  .celebrate-overlay--quest .celebrate-overlay__circle{ width:230px; height:230px; }
+  .celebrate-overlay__message{
+    font-size:20px;
+    font-weight:700;
+    color:#fff;
+    text-align:center;
+    text-shadow:0 2px 10px rgba(0,0,0,.35);
+  }
+  .celebrate-overlay--quest .celebrate-overlay__message{ font-size:23px; }
+  .celebrate-overlay__pillar{
+    position:absolute;
+    bottom:50%;
+    left:50%;
+    width:110px;
+    height:62vh;
+    margin-left:-55px;
+    background:linear-gradient(to top, rgba(139,126,200,0) 0%, rgba(139,126,200,.5) 45%, rgba(255,255,255,.85) 100%);
+    filter:blur(3px);
+    animation:pillar-rise 1s ease-out;
+    pointer-events:none;
+  }
+  .celebrate-confetti{
+    position:absolute;
+    top:-10%;
+    color:#fff;
+    text-shadow:0 0 6px rgba(139,126,200,.8);
+    animation-name:confetti-fall;
+    animation-timing-function:linear;
+    animation-fill-mode:forwards;
+    pointer-events:none;
+  }
 </style>
 </head>
 <body>
@@ -344,6 +484,7 @@
 </div>
 <div id="modalRoot"></div>
 <div id="confirmRoot"></div>
+<div id="celebrationRoot"></div>
 
 <script>
 "use strict";
@@ -792,7 +933,7 @@ function goalCardHtml(goal, date, period){
   var rec = findRecord(date, goal.id);
   if(goal.type === "daily" && goal.mode === "check"){
     var done = !!rec && rec.value === 1;
-    return '<div class="goal-card">' +
+    return '<div class="goal-card" data-goal-id="' + goal.id + '">' +
       goalCardHeaderHtml(goal) +
       '<button class="goal-card__big-btn ' + (done ? "is-done" : "") + '" data-action="toggle-check" data-goal-id="' + goal.id + '">' +
         (done ? "できた! ✅" : "できた!") +
@@ -802,7 +943,7 @@ function goalCardHtml(goal, date, period){
   if(goal.type === "daily" && goal.mode === "number"){
     var val = rec ? rec.value : "";
     var achieved = !!rec && rec.value >= goal.target;
-    return '<div class="goal-card">' +
+    return '<div class="goal-card" data-goal-id="' + goal.id + '">' +
       goalCardHeaderHtml(goal) +
       '<div class="goal-card__target">目標: ' + goal.target + esc(goal.unit) + '</div>' +
       '<div class="goal-card__input-row">' +
@@ -817,7 +958,7 @@ function goalCardHtml(goal, date, period){
     var target = weeklyTargetFor(goal, weekNum);
     var wval = rec ? rec.value : "";
     var wachieved = !!rec && rec.value >= target;
-    return '<div class="goal-card">' +
+    return '<div class="goal-card" data-goal-id="' + goal.id + '">' +
       goalCardHeaderHtml(goal, '<span class="goal-card__week">第' + weekNum + '週</span>') +
       '<div class="goal-card__target">目標: ' + target + esc(goal.unit) + '</div>' +
       '<div class="goal-card__input-row">' +
@@ -831,7 +972,7 @@ function goalCardHtml(goal, date, period){
     var sum = recordsOfGoal(goal.id).reduce(function(s,r){ return s + r.value; }, 0);
     var tval = rec ? rec.value : "";
     var remain = Math.max(goal.totalTarget - sum, 0);
-    return '<div class="goal-card">' +
+    return '<div class="goal-card" data-goal-id="' + goal.id + '">' +
       goalCardHeaderHtml(goal) +
       '<div class="goal-card__target">今日進んだ' + esc(goal.unit) + '数</div>' +
       '<div class="goal-card__input-row">' +
@@ -856,13 +997,144 @@ function goNextDay(){
   if(next <= period.end){ ui.todayDate = next; renderToday(); }
 }
 
+/* ===================== お祝い演出 ===================== */
+var celebrationActive = false;
+
+var MAGIC_CIRCLE_SVG_SMALL =
+  '<svg class="celebrate-single__circle" viewBox="0 0 64 64" fill="none">' +
+    '<circle cx="32" cy="32" r="26" stroke="var(--color-main)" stroke-width="2"/>' +
+    '<circle cx="32" cy="32" r="18" stroke="var(--color-main)" stroke-width="1" stroke-dasharray="3 4"/>' +
+    '<path d="M32 6 L32 58 M6 32 L58 32" stroke="var(--color-main)" stroke-width="1" opacity=".5"/>' +
+  '</svg>';
+
+var MAGIC_CIRCLE_SVG_BIG =
+  '<svg class="celebrate-overlay__circle" viewBox="0 0 200 200" fill="none">' +
+    '<circle cx="100" cy="100" r="90" stroke="#fff" stroke-width="2" opacity=".9"/>' +
+    '<circle cx="100" cy="100" r="70" stroke="#fff" stroke-width="1.5" stroke-dasharray="6 6" opacity=".8"/>' +
+    '<circle cx="100" cy="100" r="50" stroke="#fff" stroke-width="1" opacity=".7"/>' +
+    '<path d="M100 10 L100 190 M10 100 L190 100 M35 35 L165 165 M165 35 L35 165" stroke="#fff" stroke-width="1" opacity=".5"/>' +
+    '<circle cx="100" cy="10" r="4" fill="#fff"/><circle cx="100" cy="190" r="4" fill="#fff"/>' +
+    '<circle cx="10" cy="100" r="4" fill="#fff"/><circle cx="190" cy="100" r="4" fill="#fff"/>' +
+  '</svg>';
+
+function particlesHtml(count){
+  var html = "";
+  for(var i=0;i<count;i++){
+    var angle = (Math.PI*2/count)*i + Math.random()*0.4;
+    var dist = 30 + Math.random()*18;
+    var dx = (Math.cos(angle)*dist).toFixed(1) + "px";
+    var dy = (Math.sin(angle)*dist).toFixed(1) + "px";
+    html += '<span class="celebrate-single__particle" style="left:50%;top:50%;--dx:' + dx + ';--dy:' + dy + ';animation-delay:' + (i*0.03).toFixed(2) + 's;">✦</span>';
+  }
+  return html;
+}
+function starConfettiHtml(count){
+  var html = "";
+  for(var i=0;i<count;i++){
+    var left = Math.random()*100;
+    var duration = (2 + Math.random()*1.4).toFixed(2);
+    var delay = (Math.random()*0.6).toFixed(2);
+    var size = 12 + Math.round(Math.random()*10);
+    html += '<span class="celebrate-confetti" style="left:' + left.toFixed(1) + '%;font-size:' + size + 'px;animation-duration:' + duration + 's;animation-delay:' + delay + 's;">✦</span>';
+  }
+  return html;
+}
+
+function playSingleCelebration(goalId){
+  if(celebrationActive) return;
+  var card = document.querySelector('.goal-card[data-goal-id="' + goalId + '"]');
+  if(!card || card.querySelector(".celebrate-single")) return;
+  var overlay = document.createElement("div");
+  overlay.className = "celebrate-single";
+  overlay.innerHTML = MAGIC_CIRCLE_SVG_SMALL + particlesHtml(6) + '<div class="celebrate-single__label">達成!</div>';
+  overlay.addEventListener("click", function(){ overlay.remove(); });
+  card.appendChild(overlay);
+  setTimeout(function(){ if(overlay.parentNode) overlay.remove(); }, 1000);
+}
+
+function showFullscreenCelebration(kind, message, duration, confettiCount){
+  if(celebrationActive) return;
+  celebrationActive = true;
+  var root = document.getElementById("celebrationRoot");
+  root.innerHTML =
+    '<div class="celebrate-overlay celebrate-overlay--' + kind + '">' +
+      (kind === "quest" ? '<div class="celebrate-overlay__pillar"></div>' : "") +
+      starConfettiHtml(confettiCount) +
+      '<div class="celebrate-overlay__content">' +
+        MAGIC_CIRCLE_SVG_BIG +
+        '<div class="celebrate-overlay__message">' + esc(message) + '</div>' +
+      '</div>' +
+    '</div>';
+  var timer = setTimeout(dismissFullscreenCelebration, duration);
+  root.querySelector(".celebrate-overlay").addEventListener("click", function(){
+    clearTimeout(timer);
+    dismissFullscreenCelebration();
+  });
+}
+function dismissFullscreenCelebration(){
+  document.getElementById("celebrationRoot").innerHTML = "";
+  celebrationActive = false;
+}
+function playDayCelebration(){
+  showFullscreenCelebration("day", "今日の目標 全達成!", 2500, 18);
+}
+function playQuestCelebration(){
+  showFullscreenCelebration("quest", "クエスト完全達成!!", 3000, 32);
+}
+
+function goalAchievedForDate(goal, date, period){
+  var rec = findRecord(date, goal.id);
+  if(goal.type === "daily" && goal.mode === "check") return !!rec && rec.value === 1;
+  if(goal.type === "daily" && goal.mode === "number") return !!rec && rec.value >= goal.target;
+  if(goal.type === "weekly"){
+    var wn = weekNumberOf(period, date);
+    var t = weeklyTargetFor(goal, wn);
+    return !!rec && rec.value >= t;
+  }
+  if(goal.type === "total") return !!rec;
+  return false;
+}
+function totalSumAchieved(goal){
+  if(goal.type !== "total") return false;
+  var sum = recordsOfGoal(goal.id).reduce(function(s,r){ return s + r.value; }, 0);
+  return sum >= goal.totalTarget;
+}
+function allGoalsAchievedForDate(date, period){
+  var goals = getGoalsOfActivePeriod();
+  if(!goals.length) return false;
+  return goals.every(function(g){ return goalAchievedForDate(g, date, period); });
+}
+function withAchievementCelebration(goal, date, action){
+  var period = getActivePeriod();
+  var beforeSingle = goalAchievedForDate(goal, date, period);
+  var beforeAll = allGoalsAchievedForDate(date, period);
+  var beforeTotal = totalSumAchieved(goal);
+
+  action();
+
+  if(date !== todayStr()) return;
+  var afterSingle = goalAchievedForDate(goal, date, period);
+  var afterAll = allGoalsAchievedForDate(date, period);
+  var afterTotal = totalSumAchieved(goal);
+
+  if(goal.type === "total" && !beforeTotal && afterTotal){
+    playQuestCelebration();
+  } else if(!beforeAll && afterAll){
+    playDayCelebration();
+  } else if(goal.type !== "total" && !beforeSingle && afterSingle){
+    playSingleCelebration(goal.id);
+  }
+}
+
 function onDailyCheckClick(goalId){
   var goal = state.goals.find(function(g){ return g.id === goalId; });
   var date = ui.todayDate;
   var rec = findRecord(date, goalId);
   if(!rec){
-    setRecord(date, goalId, 1);
-    renderToday();
+    withAchievementCelebration(goal, date, function(){
+      setRecord(date, goalId, 1);
+      renderToday();
+    });
   } else {
     showConfirm(formatMD(date) + "の『" + goal.name + "』の記録を取り消します。よろしいですか?", function(){
       deleteRecord(date, goalId);
@@ -884,12 +1156,16 @@ function onRecordNumberClick(goalId){
   var existing = findRecord(date, goalId);
   if(existing && existing.value !== value){
     showConfirm(formatMD(date) + "の『" + goal.name + "』の記録を " + existing.value + esc(goal.unit || "") + " → " + value + esc(goal.unit || "") + " に変えます。よろしいですか?", function(){
+      withAchievementCelebration(goal, date, function(){
+        setRecord(date, goalId, value);
+        renderToday();
+      });
+    });
+  } else if(!existing){
+    withAchievementCelebration(goal, date, function(){
       setRecord(date, goalId, value);
       renderToday();
     });
-  } else if(!existing){
-    setRecord(date, goalId, value);
-    renderToday();
   }
 }
 
@@ -1003,12 +1279,30 @@ function totalGraphCardHtml(goal, period){
     note = "あと" + Math.ceil(idealToday - actualToday) + esc(goal.unit) + "で予定通り!";
   }
 
+  var achieveIdx = -1;
+  for(var ai=0; ai<actualVals.length; ai++){
+    if(actualVals[ai] >= goal.totalTarget){ achieveIdx = ai; break; }
+  }
+  var achieveMark = "";
+  if(achieveIdx >= 0){
+    var ap = actualPoints[achieveIdx];
+    var markX = ap[0], markY = ap[1]-7;
+    if(markX < padL+46 && markY < 22){ markX = padL+46; markY = 10; }
+    achieveMark = '<text x="' + markX.toFixed(1) + '" y="' + markY.toFixed(1) + '" font-size="13" text-anchor="middle" fill="var(--color-main-dark)">✦</text>';
+  }
+
+  var gradId = "totalGrad-" + goal.id;
   var svg = '<svg class="graph-card__svg" viewBox="0 0 ' + W + ' ' + H + '">' +
+    '<defs><linearGradient id="' + gradId + '" x1="0" y1="0" x2="1" y2="0">' +
+      '<stop offset="0%" stop-color="#c9bdf0"/>' +
+      '<stop offset="100%" stop-color="var(--color-main)"/>' +
+    '</linearGradient></defs>' +
     '<line x1="' + padL + '" y1="' + (H-padB) + '" x2="' + (W-padR) + '" y2="' + (H-padB) + '" stroke="var(--color-axis)"/>' +
     '<line x1="' + padL + '" y1="' + padT + '" x2="' + padL + '" y2="' + (H-padB) + '" stroke="var(--color-axis)"/>' +
     '<text x="' + padL + '" y="10" font-size="9" fill="var(--color-axis-text)">' + goal.totalTarget + esc(goal.unit) + '</text>' +
     '<path d="' + svgLine(idealPoints) + '" fill="none" stroke="var(--color-ideal-line)" stroke-width="2" stroke-dasharray="4,3"/>' +
-    '<path d="' + svgLine(actualPoints) + '" fill="none" stroke="var(--color-main)" stroke-width="2.5"/>' +
+    '<path d="' + svgLine(actualPoints) + '" fill="none" stroke="url(#' + gradId + ')" stroke-width="2.5"/>' +
+    achieveMark +
     '</svg>';
 
   return '<div class="graph-card">' +
@@ -1081,7 +1375,7 @@ function calendarHtml(map, period){
     var info = map[d];
     var cls = "calendar__day";
     var mark = "";
-    if(info.achieved){ cls += " calendar__day--achieved"; mark = "○"; }
+    if(info.achieved){ cls += " calendar__day--achieved"; mark = "✦"; }
     else if(info.recorded){ cls += " calendar__day--partial"; mark = "△"; }
     html += '<div class="' + cls + '">' + Number(parts[2]) + (mark ? '<span class="calendar__day-mark">'+mark+'</span>' : '') + '</div>';
     d = addDays(d, 1);
